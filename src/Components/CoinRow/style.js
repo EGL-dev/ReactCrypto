@@ -9,4 +9,18 @@ export const CryptoImageCell = styled(TableCell)({
     }
 })
 
+
+export const CryptoDeleteCell = styled(TableCell)({
+    position:"relative",
+    "& .delete-crypto":{
+        position:"absolute",
+        right:"20%",
+        top:"30%",
+        display:"none"
+    },
+    "& div":{
+        display:"flex"
+    }
+
+})
 export default CryptoImageCell;

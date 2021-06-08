@@ -41,9 +41,9 @@ useEffect(()=>{
                         ids:crypto.join()
                     }
                 })
-
                 Setcoins(response.data)
                 setisLoading(false)
+            
             } catch (error) {
                 console.log(error)
                 
@@ -55,7 +55,7 @@ useEffect(()=>{
                 }
             })
             Setcoins(response.data)
-                console.log(coins)
+                setisLoading(false)
         }
         fetchData()
     
