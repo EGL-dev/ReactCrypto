@@ -20,7 +20,7 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route path="/currencies" component={chartPage} />
+          <Route path="/criptocurrencies/:id" component={chartPage} />
           <Route to="/" component={homePage} />
         </Switch>
       </Router>

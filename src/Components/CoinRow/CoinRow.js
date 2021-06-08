@@ -6,6 +6,7 @@ import accounting from "accounting";
 import  ArrowDropUpIcon  from "@material-ui/icons/ArrowDropUp";
 import  ArrowDropDrowIcon  from "@material-ui/icons/ArrowDropDown";
 import  DeleteIcon  from "@material-ui/icons/Delete";
+import { Link } from "react-router-dom";
 
 const CoinRow = ({
   data: {
@@ -26,7 +27,9 @@ const CoinRow = ({
       <TableCell>{market_cap_rank}</TableCell>
       <TableCell>{accounting.formatMoney(current_price, "$")}</TableCell>
       <TableCell>
+        <Link to={`/criptocurrencies/${id}`}>
         <BarChartIcon />
+        </Link>
       </TableCell>
       <CryptoDeleteCell>
         {price_change_percentage_24h > 0 ? (
