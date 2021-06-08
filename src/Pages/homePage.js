@@ -10,12 +10,9 @@ import {
 import React, { useEffect, useState } from "react";
 import { styled } from "@material-ui/core";
 import baseEndPoinst from "../Apis/coin";
-import {useSelector} from "react-redux";
-import {selectCrypto} from "../Feactures/CryptoSlice";
+import { useSelector } from "react-redux";
+import { selectCrypto } from "../Feactures/CryptoSlice";
 import CoinRow from "../Components/CoinRow/CoinRow";
-
-
-
 
 const HeaderCell = styled(TableCell)({
   fontWeight: "800px",
@@ -23,44 +20,32 @@ const HeaderCell = styled(TableCell)({
   fontStyle: "italic",
 });
 
-
-
 const HomePage = () => {
-
-const crypto = useSelector(selectCrypto)
-const [coins,Setcoins]= useState([])
-const [isLoading,setisLoading] = useState([false]);
-useEffect(()=>{
-
-        const fetchData = async()=>{
-            setisLoading(true)
-            try {
-                const response = await baseEndPoinst.get("/coins/markets",{
-                    params:{
-                        vs_currency:"ars",
-                        ids:crypto.join()
-                    }
-                })
-                Setcoins(response.data)
-                setisLoading(false)
-            
-            } catch (error) {
-                console.log(error)
-                
-            }
-            const response = await baseEndPoinst.get("/coins/markets",{
-                params:{
-                    vs_currency:"ars",
-                    ids:crypto.join()
-                }
-            })
-            Setcoins(response.data)
-                setisLoading(false)
-        }
-        fetchData()
-    
-},[crypto])
-
+  const crypto = useSelector(selectCrypto);
+  const [coins, Setcoins] = useState([]);
+  const [isLoading, setisLoading] = useState([false]);
+  useEffect(() => {
+    const fetchData = async () => {
+      setisLoading(true);
+      try {
+        const response = await baseEndPoinst.get("/coins/markets", {
+          params: {
+            vs_currency: "ars",
+            ids: crypto.join(),
+          },
+        });
+        Setcoins(response.data);
+        setisLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (crypto.length) {
+      fetchData();
+    } else {
+      Setcoins([]);
+    }
+  }, [crypto]);
 
   return (
     <TableContainer component={Paper}>
@@ -76,11 +61,9 @@ useEffect(()=>{
           </TableRow>
         </TableHead>
         <TableBody>
-          {
-              coins.map(coin => (
-                  <CoinRow key={coin.id} data={coin}/>
-              ))
-          }
+          {coins.map((coin) => (
+            <CoinRow key={coin.id} data={coin} />
+          ))}
         </TableBody>
       </Table>
     </TableContainer>

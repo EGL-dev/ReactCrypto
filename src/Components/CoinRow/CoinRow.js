@@ -7,6 +7,8 @@ import  ArrowDropUpIcon  from "@material-ui/icons/ArrowDropUp";
 import  ArrowDropDrowIcon  from "@material-ui/icons/ArrowDropDown";
 import  DeleteIcon  from "@material-ui/icons/Delete";
 import { Link } from "react-router-dom";
+import {useSelector , useDispatch} from "react-redux";
+import {selectCrypto, DELETE_CRYPTO} from "../../Feactures/CryptoSlice"
 
 const CoinRow = ({
   data: {
@@ -18,6 +20,15 @@ const CoinRow = ({
     price_change_percentage_24h,
   },
 }) => {
+ 
+  const crypto = useSelector(selectCrypto);
+  const dispatch =useDispatch();
+  const deleteCrypto = (e,id) =>{
+    e.preventDefault();
+    const _crypto=crypto.filter((item)=>item!==id)
+    dispatch(DELETE_CRYPTO(_crypto))
+
+  }
   return (
     <TableRow className="table-row">
       <CryptoImageCell>
@@ -49,7 +60,8 @@ const CoinRow = ({
             </span>
           </div>
         )}
-        <span className="delete-crypto" style={{color:"gray", cursor:"pointer"}}>
+        <span className="delete-crypto" style={{color:"gray", cursor:"pointer"}}
+            onClick={e=>deleteCrypto(e,id)}>
             <DeleteIcon />
         </span>
       </CryptoDeleteCell>
